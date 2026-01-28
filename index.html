@@ -96,8 +96,6 @@
                             <div class="metaCard__label">חפירות</div>
                         </div>
                     </div>
-
-
                 </div>
 
                 <div class="hero__visual" data-reveal="up" data-delay="120">
@@ -266,14 +264,36 @@
         <section id="contact" class="section">
             <div class="container contactGrid">
 
+                <!-- ✅ פה השינוי: במקום הכתובת/כפתור ניווט הרגיל -->
                 <div class="contactInfo" data-reveal="up">
                     <h2>קביעת תור — SHABAT</h2>
                     <p>השאר פרטים ונחזור אליך. לקוח חדש? מתנה 🎁</p>
 
                     <p><strong>טלפון:</strong> <a href="tel:+972500000000">050-000-0000</a></p>
-                    <p><strong>כתובת:</strong> הכנס כאן כתובת המספרה</p>
+                    <p><strong>כתובת:</strong> ליברנו 3, בת ים</p>
 
-                    <a class="btn btn--ghost" target="_blank" href="https://maps.google.com">ניווט</a>
+                    <div class="mapWrap">
+                        <iframe title="מפת הגעה - SHABAT" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps?q=%D7%9C%D7%99%D7%91%D7%A8%D7%A0%D7%95%203%20%D7%91%D7%AA%20%D7%99%D7%9D&output=embed">
+                        </iframe>
+
+                        <div class="mapBadge">
+                            <div class="mapBadge__title">SHABAT • לידור שבת</div>
+                            <div class="mapBadge__addr">ליברנו 3, בת ים</div>
+
+                            <div class="mapBadge__actions">
+                                <a class="mapBtn mapBtn--dark" target="_blank" rel="noreferrer"
+                                    href="https://www.google.com/maps/dir/?api=1&destination=%D7%9C%D7%99%D7%91%D7%A8%D7%A0%D7%95%203%20%D7%91%D7%AA%20%D7%99%D7%9D">
+                                    ניווט בגוגל
+                                </a>
+
+                                <a class="mapBtn mapBtn--ghost" target="_blank" rel="noreferrer"
+                                    href="https://waze.com/ul?q=%D7%9C%D7%99%D7%91%D7%A8%D7%A0%D7%95%203%20%D7%91%D7%AA%20%D7%99%D7%9D&navigate=yes">
+                                    Waze
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <form class="form" id="leadForm" data-reveal="up" data-delay="120">
@@ -314,6 +334,7 @@
 
             </div>
         </section>
+
         <section class="socials">
             <div class="container socials__inner">
                 <span class="socials__label">עקבו אחרי SHABAT</span>
