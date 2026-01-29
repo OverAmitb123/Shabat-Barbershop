@@ -144,3 +144,102 @@ document.querySelectorAll(".btn").forEach((btn) => {
         btn.style.transform = "translate(0, 0)";
     });
 });
+
+// ================= Team Carousel (3s) =================
+const team = [
+    { name: "לידור שבת", role: "בעלים • Barber" },
+    { name: "שאול עסיס", role: "Barber" },
+    { name: "נהוראי", role: "Barber" },
+    { name: "רולן", role: "Barber" },
+];
+
+const teamCard = document.getElementById("teamCard");
+const teamName = document.getElementById("teamName");
+const teamRole = document.getElementById("teamRole");
+const teamInitials = document.getElementById("teamInitials");
+const teamDots = document.getElementById("teamDots");
+
+const getInitials = (fullName) => {
+    const parts = fullName.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2);
+    return (parts[0].slice(0, 1) + parts[1].slice(0, 1));
+};
+
+let teamIndex = 0;
+let teamTimer = null;
+
+const renderDots = () => {
+    if (!teamDots) return;
+    teamDots.innerHTML = team
+        .map((_, i) => `<button class="teamDot ${i === teamIndex ? "is-active" : ""}" type="button" aria-label="Team ${i + 1}" data-i="${i}"></button>`)
+        .join("");
+
+    teamDots.querySelectorAll(".teamDot").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const i = Number(btn.getAttribute("data-i"));
+            goToMember(i);
+            restartTeamTimer();
+        });
+    });
+};
+
+const setMember = (i) => {
+    const m = team[i];
+    if (!m || !teamCard || !teamName || !teamRole || !teamInitials) return;
+
+    teamCard.classList.remove("is-showing");
+    teamCard.classList.add("is-fading");
+
+    setTimeout(() => {
+        teamName.textContent = m.name;
+        teamRole.textContent = m.role;
+        teamInitials.textContent = getInitials(m.name);
+
+        teamCard.classList.remove("is-fading");
+        teamCard.classList.add("is-showing");
+
+        teamIndex = i;
+        renderDots();
+    }, 220);
+};
+
+const goToMember = (i) => setMember(i);
+
+const nextMember = () => {
+    const i = (teamIndex + 1) % team.length;
+    goToMember(i);
+};
+
+const restartTeamTimer = () => {
+    if (teamTimer) clearInterval(teamTimer);
+    teamTimer = setInterval(nextMember, 3000);
+};
+
+if (teamCard) {
+    teamCard.classList.add("is-showing");
+    renderDots();
+    restartTeamTimer();
+}
+
+// ================= "Book in App" button (fallback to store) =================
+document.getElementById("teamOpenAppBtn")?.addEventListener("click", () => {
+    // אם אין deep link עדיין, שים את החנות
+    const iosStore = "PASTE_APP_STORE_LINK_HERE";
+    const androidStore = "PASTE_PLAY_STORE_LINK_HERE";
+
+    // אם יהיה deep link מהאפליקציה בעתיד:
+    const appScheme = "shabat://home";
+
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    // נסיון לפתוח אפליקציה
+    window.location = appScheme;
+
+    // fallback
+    setTimeout(() => {
+        if (isIOS) window.location = iosStore;
+        else if (isAndroid) window.location = androidStore;
+        else window.location = iosStore;
+    }, 700);
+});
